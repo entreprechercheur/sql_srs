@@ -11,6 +11,7 @@ tea,3
 '''
 beverages = pd.read_csv(io.StringIO(csv))
 
+
 csv2 = '''
 food_item,food_price
 cookie,2.5
@@ -25,6 +26,17 @@ CROSS JOIN food_items
 '''
 
 solution = duckdb.sql(answer).df()
+
+
+with st.sidebar:
+    option = st.selectbox(
+        "How would you like to review?",
+        ("Join", "Group By", "Windows Functions"),
+        index=None,
+        placeholder="Select a method..",
+    )
+
+    st.write("You selected: ", option)
 
 st.header("Enter your code:")
 query = st.text_area(label="Your SQL query here", key="user_input")
