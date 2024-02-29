@@ -57,6 +57,6 @@ with tab1:
 
 with tab2:
     exercise_name = exercise.loc[0, "exercise_name"]
-    with open(f'answers/{exercise_name}.sql', 'r') as f:
+    with open(f"answers/{exercise_name}.sql", "r") as f:
         answer = f.read()
     st.write(answer)
