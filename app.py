@@ -24,23 +24,26 @@ with st.sidebar:
         placeholder="Select a method..",
     )
 
-    try:
+    if theme:
         st.write("You selected: ", theme)
-        exercise = (
-            con.execute(f"SELECT * FROM memory_state WHERE theme = '{theme}'")
-            .df()
-            .sort_values("last_reviewed")
-            .reset_index(drop=True)
-        )
-        st.write(exercise)
+        select_exercise_query = f"SELECT * FROM memory_state WHERE theme = '{theme}'"
+    else:
+        select_exercise_query = f"SELECT * FROM memory_state"
 
-        exercise_name = exercise.loc[0, "exercise_name"]
-        with open(f"answers/{exercise_name}.sql", "r") as f:
-            answer = f.read()
+    exercise = (
+        con.execute(select_exercise_query)
+        .df()
+        .sort_values("last_reviewed")
+        .reset_index(drop=True)
+    )
 
-        solution_df = con.execute(answer).df()
-    except KeyError as e:
-        pass
+    st.write(exercise)
+
+    exercise_name = exercise.loc[0, "exercise_name"]
+    with open(f"answers/{exercise_name}.sql", "r") as f:
+        answer = f.read()
+
+    solution_df = con.execute(answer).df()
 
 st.header("Enter your code:")
 query = st.text_area(label="Your SQL query here", key="user_input")
