@@ -10,7 +10,7 @@ if 'data' not in os.listdir():
     logging.error('Creating folder data/')
     os.mkdir('data')
 
-if 'exercises_sql_tables.duckdb' is not in os.listdir('data'):
+if 'exercises_sql_tables.duckdb' not in os.listdir('data'):
     exec(open('init_db.py').read())
     # We should use instead of exec: subprocess(['python','init_db.py']
 
