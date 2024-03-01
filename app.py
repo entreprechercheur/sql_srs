@@ -5,13 +5,13 @@ import logging
 import streamlit as st
 import duckdb
 
-if 'data' not in os.listdir():
+if "data" not in os.listdir():
     logging.error(os.listdir())
-    logging.error('Creating folder data/')
-    os.mkdir('data')
+    logging.error("Creating folder data/")
+    os.mkdir("data")
 
-if 'exercises_sql_tables.duckdb' not in os.listdir('data'):
-    exec(open('init_db.py').read())
+if "exercises_sql_tables.duckdb" not in os.listdir("data"):
+    exec(open("init_db.py").read())
     # We should use instead of exec: subprocess(['python','init_db.py']
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
